@@ -7,49 +7,49 @@ After you run and find a miss, add a short correction entry under that case in a
 later commit.
 
 ## P01
-Replace this line with the rule that decides this case.
+Implicit coercion rules promotes logical and integer elements to double when mixed with a double in a vector. Double is in a higher order than integer.
 
 ## P02
-Replace this line with the rule that decides this case.
+Combining numeric, character, and logical values in a single vector forces all elements to be coerced to character type since it is the highest order.
 
 ## P03
-Replace this line with the rule that decides this case.
+Vector addition applies recycling rules, adding the shorter vector elements to the longer vector.
 
 ## P04
-Replace this line with the rule that decides this case.
+Positive integer indexing selects elements at those specific positions while preserving names.
 
 ## P05
-Replace this line with the rule that decides this case.
+Negative indexing excludes the element at the specified position while retaining the remaining elements in their original order.
 
 ## P06
-Replace this line with the rule that decides this case.
+Logical indexing keeps elements where the condition evaluates to TRUE. 'is.na()' identifies missing values, and '|' combines the conditions.
 
 ## P07
-Replace this line with the rule that decides this case.
+The factor function creates a categorical variable stored internally as an integer vector with associated levels.
 
 ## P08
-Replace this line with the rule that decides this case.
+A list is a generic vector that can hold components of mixed data types and structures.
 
 ## P09
-Replace this line with the rule that decides this case.
+A data frame is structured as a list of equal-length vectors representing columns, with a two-dimensional row and column dimension.
 
 ## P10
-Replace this line with the rule that decides this case.
+Matrix addition recycles the shorter vector to match the matrix's elements in column-major order, preserving the matrix dimensions.
 
 ## P11
-Replace this line with the rule that decides this case.
+The mean function returns NA by default when missing values are present and na.rm = TRUE is not specified.
 
 ## P12
-Replace this line with the rule that decides this case.
+Setting na.rm = TRUE removes missing values before computing for the mean.
 
 ## P13
-Replace this line with the rule that decides this case.
+Assigning a double value into an integer vector element promotes the entire vector's storage type to double.
 
 ## P14
-Replace this line with the rule that decides this case.
+The ifelse function handles conditional replacement including missing values, followed by upper-bound clamping (n > 15) via vector assignment.
 
 ## P15
-Replace this line with the rule that decides this case.
+The array function organizes a sequential vector into a multi-dimensional structure specified by the dim parameter.
 
 ## P16
-Replace this line with the rule that decides this case.
+Subsetting a vector with zero (0L) returns an empty vector of the same type and zero length.
