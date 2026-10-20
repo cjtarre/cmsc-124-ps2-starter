@@ -7,49 +7,49 @@ After you run and find a miss, add a short correction entry under that case in a
 later commit.
 
 ## P01
-Implicit coercion rules promotes logical and integer elements to double when mixed with a double in a vector. Double is in a higher order than integer.
+Implicit coercion promotes logical and integer values to double when a double is present. The result is a double vector of length 3 with no dimensions. 
 
 ## P02
-Combining numeric, character, and logical values in a single vector forces all elements to be coerced to character type since it is the highest order.
+Atomic vectors are coerced to the highest type present. Because a character value is included, all elements become character, giving length 3 with no dimensions.
 
 ## P03
-Vector addition applies recycling rules, adding the shorter vector elements to the longer vector.
+Vector addition applies recycling to the shorter vector. The two-element integer vector is reused across four positions, producing an integer vector of length 4 with no dimensions. 
 
 ## P04
-Positive integer indexing selects elements at those specific positions while preserving names.
+Positive integer indexing selects the specified positions in the given order and preserves their names. The result is an integer vector of length 2 with no dimensions. 
 
 ## P05
-Negative indexing excludes the element at the specified position while retaining the remaining elements in their original order.
+Negative indexing excludes the specified position while preserving the order of the remaining elements. The result is an integer vector of length 2 with no dimensions. 
 
 ## P06
-Logical indexing keeps elements where the condition evaluates to TRUE. 'is.na()' identifies missing values, and '|' combines the conditions.
+Logical indexing retains elements where the condition is TRUE. 'is.na(x) | x > 10' selects the missing value and the value greater than 10, producing an integer vector of length 2 with no dimensions. 
 
 ## P07
-The factor function creates a categorical variable stored internally as an integer vector with associated levels.
+A factor is stored internally as an integer vector with associated levels. It therefore has integer type, length 3, and no dimensions.
 
 ## P08
-A list is a generic vector that can hold components of mixed data types and structures.
+A list can contain elements of different types without coercion to a common atomic type. This list has two elements, so its type is list, its length is 2, and it has no dimensions.
 
 ## P09
-A data frame is structured as a list of equal-length vectors representing columns, with a two-dimensional row and column dimension.
+A data frame is internally a list of equal-length columns with row and column dimensions. Its type is list, its length is 2, and its dimensions are 2x2.
 
 ## P10
-Matrix addition recycles the shorter vector to match the matrix's elements in column-major order, preserving the matrix dimensions.
+Matrix addition recycles the shorter vector according to column-major storage order. The result remains integer, has length 6, and retains dimensions 2x3.
 
 ## P11
-The mean function returns NA by default when missing values are present and na.rm = TRUE is not specified.
+The 'mean()' function returns NA when missing values are present unless they are removed. The result is a double NA of length 1 with no dimensions
 
 ## P12
-Setting na.rm = TRUE removes missing values before computing for the mean.
+Setting 'na.rm = TRUE' removes missing values before computing the mean. The result is the double value 9 with length 1 and no dimensions.
 
 ## P13
-Assigning a double value into an integer vector element promotes the entire vector's storage type to double.
+Assigning a double value to an integer vector widens the entire vector to double. The vector retains length 3 and has no dimensions.
 
 ## P14
-The ifelse function handles conditional replacement including missing values, followed by upper-bound clamping (n > 15) via vector assignment.
+The 'ifelse()' function performs element-wise conditional replacement, replacing the missing value with 0 and doubling the others. Subassignment then caps values above 15, producing a double vector of length 4 with no dimensions. 
 
 ## P15
-The array function organizes a sequential vector into a multi-dimensional structure specified by the dim parameter.
+An array is an atomic vector with a dimension attribute. The values remain integer, giving length 8 and dimensions 2x2x2. 
 
 ## P16
-Subsetting a vector with zero (0L) returns an empty vector of the same type and zero length.
+Subsetting a vector with zero (0L) returns an empty integer vector with zero length and no dimensions.
