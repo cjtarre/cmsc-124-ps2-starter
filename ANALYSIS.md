@@ -1,6 +1,11 @@
 # Vector and Scalar Evaluation
 
-Replace this paragraph after your checks pass. Trace one input, including the
-missing value, through `clean_scores_vector()` and `clean_scores_scalar()`.
-Compare the two evaluation models, identify where recycling would change the
-answer, and explain which implementation you would keep in an R program.
+For both cleaning functions, consider the input `c(Ada = 8, Grace = NA, Linus = 12, Barbara = 4)`. In `clean_scores_vector()`, the scores are first converted to double values while their names are preserved. The vector is initially `c(Ada = 8, Grace = NA, Linus = 12, Barbara = 4)`. The expression `out[is.na(out)] <- 0` replaces Grace's missing value with `0`, giving `c(8, 0, 12, 4)`. Next, `out <- out * 2` doubles every element at once, producing `c(16, 0, 24, 8)`. Finally, `out[out > 20] <- 20` caps values greater than 20, so Linus's value becomes 20. The final result is `c(Ada = 16, Grace = 0, Linus = 20, Barbara = 8)`.
+
+In `clean_scores_scalar()`, the same result is produced one element at a time. The `for (i in seq_along(out))` loop makes the evaluation order visible because Ada is handled first, then Grace, Linus, and Barbara. Ada becomes 16. Grace is detected as `NA` and replaced with 0. Linus is doubled to 24 and then limited to 20 through `min(2 * value, 20)`. Barbara becomes 8. The order that matters most is that the `is.na(value)` check comes before the arithmetic because `2 * NA` is `NA`. Without that branch, Grace would remain `NA` instead of becoming 0.
+
+The vector implementation applies several operations to multiple elements at once. `is.na(out)` checks the whole vector, `out * 2` doubles the whole vector, and `out > 20` creates a logical mask across all values before subassignment performs the cap. In contrast, the scalar version exposes each individual decision through the loop and its `if`/`else` branch. The vector version has the same dependency, but it appears as statement order: the missing-value replacement must happen before later arithmetic and comparisons so that Grace becomes 0 before the remaining transformations.
+
+Our own doubling line shows the risk of careless recycling. If `out <- out * 2` were mistakenly written as `out <- out * c(2, 1)`, R would recycle the shorter vector to `c(2, 1, 2, 1)`. For `c(8, 0, 12, 4)`, this would produce `c(16, 0, 24, 4)` before capping, and the final result would be `c(16, 0, 20, 4)`. Barbara would incorrectly remain 4 instead of becoming 8.
+
+For an R program, we would keep `clean_scores_vector()` because its whole-vector operations express the transformation more directly and concisely. The tradeoff is that `clean_scores_scalar()` makes the processing order and per-element decisions easier to inspect and debug. Both functions produce the same required output, but they make the computation visible in different ways.
