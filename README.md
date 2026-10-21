@@ -1,5 +1,10 @@
 <!--no-pdf-->
-# CMSC 124 Problem Set 2 Starter
+# CMSC 124 Problem Set 2
+
+## Members
+
+- Josef Magloire M. Placer — `Dxdiag77`
+- Ma. Christie Jude L. Tarre — `cjtarre`
 
 This repository contains the R prediction corpus and the four functions for
 Problem Set 2. The assignment manual defines the work and the submission rules.
